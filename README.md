@@ -1,74 +1,90 @@
 # Colemak-Friendly Keybindings for Zed Editor
 
-This project provides a Ruby script to transform the JSON configuration file for the Zed editor's keybindings to be Colemak keyboard layout-friendly. It reads the existing keybindings, applies specified key swaps, and outputs the modified keybindings.
+This project provides a Ruby script to transform the Zed editor's keybindings to be Colemak keyboard layout-friendly. It automatically downloads the official Vim keymap from the Zed repository for your specific Zed version, applies Colemak-friendly key swaps, and optionally merges user-defined keybindings.
+
+## Features
+
+- **Version-specific downloads**: Automatically fetches the Vim keymap for your installed Zed version
+- **Colemak key remapping**: Transforms Vim-style navigation keys to match Colemak finger positions
+- **User customization**: Merges your personal keybindings from `user.json` with the generated keymap
+- **Preserves complex bindings**: Handles multi-key sequences and modifier keys correctly
 
 ## Key Swaps
 
-The following key swaps are applied:
-- `j` -> `n`
-- `k` -> `e`
-- `l` -> `i`
-- `n` -> `k`
-- `i` -> `u`
-- `u` -> `l`
-- `e` -> `f`
-- `f` -> `t`
-- `t` -> `j`
+The following key swaps are applied to make Vim-style navigation intuitive for Colemak users:
 
-These swaps are applied even when used with `shift-` or `ctrl-` prefixes.
+| QWERTY Key | Colemak Key | Description |
+|------------|-------------|-------------|
+| `j` | `n` | Down |
+| `k` | `e` | Up |
+| `l` | `i` | Right |
+| `n` | `k` | Search next |
+| `i` | `u` | Insert |
+| `u` | `l` | Undo |
+| `e` | `f` | End of word |
+| `f` | `t` | Find character |
+| `t` | `j` | Till character |
 
-## Keymap Input File
+These swaps are applied even when used with modifier keys like `shift-` or `ctrl-`.
 
-The keymap input file is the `vim.json` file found at:
-[https://github.com/zed-industries/zed/blob/main/assets/keymaps/vim.json](https://github.com/zed-industries/zed/blob/main/assets/keymaps/vim.json)
-
-## Inspiration
-
-The key swaps are inspired by the excellent [wbolster/emacs-evil-colemak-basics](https://github.com/wbolster/emacs-evil-colemak-basics).
-
-## Getting Started
+## Installation
 
 ### Prerequisites
 
 - Ruby (version 2.0 or higher)
-- A JSON configuration file for the Zed editor's keybindings (`vim.json`)
+- Zed editor installed and in your PATH
 
-### Installation
+### Setup
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/colemak-friendly-keybindings.git
-   cd colemak-friendly-keybindings
+   git clone https://github.com/yourusername/zed-colemak-keymap.git
+   cd zed-colemak-keymap
    ```
    
-2. **Ensure you have Ruby installed:**
-
-    ```sh
-    ruby -v
-    ```
-
-If you don't have Ruby installed, you can download it from ruby-lang.org.
+2. **Verify your Ruby installation:**
+   ```sh
+   ruby -v
+   ```
 
 ## Usage
 
-1. **Place your vim.json file in the project directory:**
+1. **Run the script:**
+   ```sh
+   ruby colemak_keybinding.rb
+   ```
 
-Ensure your vim.json file is in the same directory as the script.
+2. **Custom keybindings (optional):**
+   
+   Create a `user.json` file in the project directory with additional keybindings. These will be merged with the Colemak-transformed keybindings.
 
-2. **Run the script:**
+   Example `user.json` format:
+   ```json
+   [
+     {
+       "context": "Editor",
+       "bindings": {
+         "ctrl-s": "editor::Save"
+       }
+     }
+   ]
+   ```
 
+3. **Apply the generated keymap in Zed:**
+   
+   - Copy `colemak_keybindings.json` to your Zed configuration directory
+   - Set this file as your keymap in Zed's settings
 
-``` sh
-ruby colemak_keybindings.rb
-```
+## Inspiration
 
-3. **Output:**
-
-The script will generate a new file named colemak_keybindings.json in the same directory with the modified keybindings.
+The key swaps are inspired by the excellent [wbolster/emacs-evil-colemak-basics](https://github.com/wbolster/emacs-evil-colemak-basics) project, which applies similar transformations for Emacs.
 
 ## Contributing
 
-Feel free to contribute to this project by opening issues or submitting pull requests. Any improvements or bug fixes are welcome.
+Contributions are welcome! Feel free to:
+- Report bugs or request features by opening issues
+- Submit pull requests for improvements or fixes
+- Share your custom keybindings
 
 ## License
 
