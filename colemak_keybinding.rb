@@ -49,9 +49,22 @@ def colemak_friendly(bindings, key_mappings)
   new_bindings
 end
 
+def zed_version_tag
+  version = `zed --version`.strip.split.at(1)
+
+  if `zed --version`.downcase.include?('preview')
+    "v#{version}-pre"
+  else
+    "v#{version}"
+  end
+end
+
 # Read the JSON configuration from a file
 file_path = 'vim.json'
-system("curl -L https://raw.githubusercontent.com/zed-industries/zed/master/assets/keymaps/vim.json > #{file_path}")
+
+puts "Downloading vim.json for zed version #{zed_version_tag}..."
+
+system("curl -L https://raw.githubusercontent.com/zed-industries/zed/#{zed_version_tag}/assets/keymaps/vim.json > #{file_path}")
 json_data = File.read(file_path)
 config = JSON.parse(json_data)
 
