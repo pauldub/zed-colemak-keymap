@@ -1,0 +1,53 @@
+[
+  {
+    "context": "(Editor && VimControl && !VimWaiting && !menu) || Terminal",
+    "bindings": {
+      "alt-z": "workspace::ToggleZoom"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "ctrl-space": "editor::SelectLargerSyntaxNode",
+      "ctrl-shift-space": "editor::SelectSmallerSyntaxNode"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "ctrl-space": "editor::SelectLargerSyntaxNode",
+      "ctrl-shift-space": "editor::SelectSmallerSyntaxNode"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w n": "workspace::ActivatePaneRight",
+      "ctrl-w e": "workspace::ActivatePaneUp",
+      "ctrl-w i": "workspace::ActivatePaneDown"
+    }
+  },
+  {
+    "context": "VimControl && !menu && vim_mode != operator",
+    "bindings": {
+      "w": "vim::NextSubwordStart",
+      "b": "vim::PreviousSubwordStart",
+      "j": "vim::NextSubwordEnd",
+      "g j": "vim::PreviousSubwordEnd"
+    }
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "t": "vim::PushSneak",
+      "shift-t": "vim::PushSneakBackward"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-x": "vim::Exchange"
+    }
+  }
+]
