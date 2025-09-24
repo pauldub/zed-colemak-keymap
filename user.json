@@ -28,15 +28,15 @@
       "ctrl-w i": "workspace::ActivatePaneDown"
     }
   },
-  {
-    "context": "VimControl && !menu && vim_mode != operator",
-    "bindings": {
-      "w": "vim::NextSubwordStart",
-      "b": "vim::PreviousSubwordStart",
-      "j": "vim::NextSubwordEnd",
-      "g j": "vim::PreviousSubwordEnd"
-    }
-  },
+  // {
+  //   "context": "VimControl && !menu && vim_mode != operator",
+  //   "bindings": {
+  //     "w": "helix::NextSubwordStart",
+  //     "b": "helix::PreviousSubwordStart",
+  //     "j": "helix::NextSubwordEnd",
+  //     "g j": "helix::PreviousSubwordEnd"
+  //   }
+  // },
   {
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
