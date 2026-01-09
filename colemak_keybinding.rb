@@ -59,6 +59,16 @@ def zed_version_tag
   end
 end
 
+def strip_json_comments(json_string)
+  # Remove multi-line comments /* ... */
+  json_string.gsub!(%r{/\*.*?\*/}m, '')
+  # Remove single-line comments //...
+  json_string.gsub!(%r{//.*?$}, '')
+  # Remove trailing commas before closing braces/brackets
+  json_string.gsub!(/,(\s*[}\]])/, '\1')
+  json_string
+end
+
 # Read the JSON configuration from a file
 file_path = 'vim.json'
 
@@ -66,7 +76,7 @@ puts "Downloading vim.json for zed version #{zed_version_tag}..."
 
 system("curl -L https://raw.githubusercontent.com/zed-industries/zed/#{zed_version_tag}/assets/keymaps/vim.json > #{file_path}")
 json_data = File.read(file_path)
-config = JSON.parse(json_data)
+config = JSON.parse(strip_json_comments(json_data))
 
 # Apply the key swaps
 config.each do |entry|
@@ -77,7 +87,7 @@ end
 user_file_path = 'user.json'
 if File.exist?(user_file_path)
   user_json_data = File.read(user_file_path)
-  user_config = JSON.parse(user_json_data)
+  user_config = JSON.parse(strip_json_comments(user_json_data))
 
   config.concat(user_config)
 end
